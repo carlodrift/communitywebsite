@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div id="footer" class="main">
+    <h1>Roller Champions FR 🛼</h1>
+    <a href="{{ path('home') }}">
+        <button id="button">Accueil</button>
+    </a>
+    <a href="{{ path('app_articles') }}">
+        <button id="button">Posts</button>
+    </a>
+    <a href="{{ path('app_announcements') }}">
+        <button id="button">Annonces</button>
+    </a>
+    {% if app.user %}
+        <a href="{{ path('app_logout') }}">
+            <button id="button">Se déconnecter</button>
+        </a>
+    {% else %}
+        <a href="{{ path('app_login') }}">
+            <button id="button">Se connecter</button>
+        </a>
+    {% endif %}
+</div>
+<br>
+{% block body %}{% endblock %}
+<br><br>
+<div id="footer" class="main">
+    <a href="{{ path('app_contact') }}">
+        <button id="button">Nous contacter</button>
+    </a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_admin') }}">
+            <button id="button">Admin</button>
+        </a>
+    {% endif %}
+</div>
+</body>
+<style>
+
+    .main {
+        margin: 1em auto;
+        max-width: 1200px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+
+
+    .main code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+    #button {
+        background-color: teal;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    #footer {
+        /*black footer*/
+        background-color: teal;
+        color: #ffffff;
+        text-align: center;
+        padding: 5px;
+
+        right: 0;
+        top: 0;
+        width: 100%;
+
+        /*éléments cote à cote*/
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    #footer > h1 {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        padding-left: 30px;
+        padding-top: 10px;
+    }
+
+    .category {
+        /*little button*/
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+        border-radius: 8px;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        width: 80px;
+        font-size: 12px;
+    }
+
+
+</style>
+
+
+</html>

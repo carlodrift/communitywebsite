@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Roller Champions FR{% endblock %}
+
+
+
+{% block body %}
+    <style>
+
+
+        .main code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        #cr_announcement_form_content {
+            width: 100%;
+            height: 150px;
+        }
+
+        #cr_announcement_form_title {
+            width: 100%;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        img {
+            max-width: 20%;
+        }
+
+        ul > li {
+            color: red;
+        }
+
+        .mb-3 {
+            font-size: medium;
+            font-style: italic;
+        }
+
+
+        #author {
+            font-style: italic;
+            font-size: medium;
+        }
+
+        .main {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        #arlist {
+            width: 800px;
+            word-wrap: break-word;
+        }
+
+    </style>
+
+
+    <style>
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            font-size: 1.5rem;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-notfound {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+
+    </style>
+
+    <div class="main">
+
+        <h2>Annonces</h2>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if success == 1 %}
+            <div class="alert alert-success">Votre post a bien été publié !</div>
+            <br>
+        {% endif %}
+
+
+        <div id="arlist">
+            {% if notfound == true %}
+                <div class="alert alert-notfound"><p>Article introuvable.</p>
+                </div>
+                <a href="{{ path('app_articles') }}">
+                    <button id="button">Voir tous les posts</button>
+                </a>
+                <br>
+            {% else %}
+                {% if articles %}
+
+                    {% for article in articles %}
+                        <hr>
+                        <a href="/articles/{{ article.id }}">
+                            <h3>{{ article.title }}</h3>
+                        </a>
+                        {% if  article.thumbnailsFileName %}
+                            <a href="{{ asset('uploads/' ~ article.thumbnailsFileName) }}" target="_blank">
+                                <img src="{{ asset('uploads/' ~ article.thumbnailsFileName) }}" alt="thumbnails">
+                            </a>
+                        {% endif %}
+                        <p>{{ article.content }}</p>
+                        <p id="author"><strong>{{ article.author }}</strong></p>
+                    {% endfor %}
+                    <hr>
+
+                {% else %}
+                    <p>Pas encore d'annonces.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter{% endblock %}
+
+{% block body %}
+
+    <style>
+        .main {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        #inputUsername {
+            width: 100%;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        #inputPassword {
+            width: 100%;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        li {
+            color: red;
+            list-style: none;
+        }
+
+        .mb-3 {
+            font-size: medium;
+            font-style: italic;
+        }
+    </style>
+    <div class="main">
+        <h2>Se connecter</h2>
+        <form method="post">
+
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">ce
+                        n'est pas vous ?</a>
+                </div>
+            {% endif %}
+
+            <label for="inputUsername">Nom d'utilisateur</label>
+            <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control"
+                   autocomplete="username" required autofocus>
+            <br>
+            <br>
+            <label for="inputPassword">Mot de passe</label>
+            {% if error %}
+                <ul>
+                    <li>
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    </li>
+                </ul>
+            {% endif %}
+            <input type="password" name="password" id="inputPassword" class="form-control"
+                   autocomplete="current-password"
+                   required>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}">
+            <br>
+            <br>
+            <div class="mb-3">
+                Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a>
+            </div>
+            <button class="btn btn-lg btn-primary" id="button" type="submit">Se connecter</button>
+        </form>
+    </div>
+{% endblock %}

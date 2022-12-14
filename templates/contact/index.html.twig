@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+
+
+{% block body %}
+    <style>
+        .main {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .main code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+
+        #cr_contact_form_content {
+            width: 100%;
+            height: 150px;
+        }
+
+        #cr_contact_form_title {
+            width: 100%;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        img {
+            max-width: 10%;
+        }
+
+        ul > li {
+            color: red;
+        }
+
+        .mb-3 {
+            font-size: medium;
+            font-style: italic;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+    </style>
+
+
+    <style>
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            font-size: 1.5rem;
+        }
+    </style>
+
+    <div class="main">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <h2>Nous contacter</h2>
+
+        {% if success == 1 %}
+            <div class="alert alert-success">Votre message a bien été envoyé !</div>
+            <br>
+        {% endif %}
+        {{ form_start(contactForm) }}
+        {{ form_row(contactForm.title, {
+            label: "Sujet"
+        }) }}
+        <br>
+        {{ form_row(contactForm.content, {
+            label: 'Contenu'
+        }) }}
+        <br>
+        {% if app.user %}
+            <div class="mb-3">
+                Vous envoyez un message en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">ce
+                    n'est pas
+                    vous ?</a>
+            </div>
+        {% else %}
+            <div class="mb-3">
+                Vous envoyez un message anonyme, <a href="{{ path('app_login') }}">se connecter ?</a>
+            </div>
+        {% endif %}
+        <button id="button" type="submit" class="btn">Envoyer</button>
+        {{ form_end(contactForm) }}
+
+    </div>
+{% endblock %}

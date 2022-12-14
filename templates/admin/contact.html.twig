@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Roller Champions FR{% endblock %}
+
+
+
+{% block body %}
+    <style>
+
+
+        .main code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+
+        #cr_article_form_content {
+            width: 100%;
+            height: 150px;
+        }
+
+        #cr_article_form_title {
+            width: 100%;
+            height: 40px;
+            font-size: 1em;
+        }
+
+        img {
+            max-width: 20%;
+        }
+
+        ul > li {
+            color: red;
+        }
+
+        img {
+            padding-top: 7px;
+        }
+
+        .mb-3 {
+            font-size: medium;
+            font-style: italic;
+        }
+
+
+        #author {
+            font-style: italic;
+            font-size: medium;
+        }
+
+        .main {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        #arlist {
+            width: 800px;
+            word-wrap: break-word;
+        }
+
+    </style>
+
+
+    <style>
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            font-size: 1.5rem;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-notfound {
+            color: #856404;
+            background-color: #fff3cd;
+            border-color: #ffeeba;
+        }
+
+        svg {
+            width: 3%;
+            height: 3%;
+        }
+
+        .st0 {
+            fill: #1D9BF0;
+        }
+
+        .st1 {
+            fill: #3b5998;
+        }
+    </style>
+
+    <div class="main">
+
+        <h2>Message reçu</h2>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <br>
+        <div id="arlist">
+            {% if notfound == true %}
+                <div class="alert alert-notfound"><p>Message introuvable.</p>
+                </div>
+                <br>
+            {% else %}
+
+                        <hr>
+                            <h3>{{ contact.title }}</h3>
+                        <p>{{ contact.content }}</p>
+                        <p id="author"><strong>{{ contact.author }}</strong></p>
+
+
+                    <hr>
+
+            {% endif %}
+            <a href="{{ path('app_admin') }}">
+                <button id="button">Voir tous les messages</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
